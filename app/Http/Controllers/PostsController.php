@@ -58,11 +58,13 @@ class PostsController extends Controller
     public function store(StorePost $request)
     {   
         $validated = $request->validated();   /// rule trong app/Http/Requests/StorePost.php
-        $post = new Post();
-        $post -> title = $validated['title'];
-        $post -> content = $validated['content'];
-        $post -> save();
+        // $post = new Post();
+        // $post -> title = $validated['title'];
+        // $post -> content = $validated['content'];
+        // $post -> save();
 
+
+        $post = Post::create($validated);
         $request->session()->flash('status', 'The post created susscess!');
         return redirect()->route('posts.show', ['post' => $post->id]);
     }
