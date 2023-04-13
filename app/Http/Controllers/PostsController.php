@@ -45,7 +45,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -56,7 +56,12 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new Post();
+        $post -> title = $request->input('title');
+        $post -> content = $request->input('content');
+        $post -> save();
+
+        return redirect()->route('posts.show', ['post' => $post->id]);
     }
 
     /**

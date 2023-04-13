@@ -81,7 +81,8 @@ $posts = [
 // ])->name('posts.recent.index')->middleware('auth');
 
 
-Route::resource('posts', 'PostsController');
+Route::resource('posts', 'PostsController')
+    ->only(['index', 'show', 'create', 'store']);
 
 
 
