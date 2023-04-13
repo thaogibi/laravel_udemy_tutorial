@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\PostsController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,13 @@ Route::get('/laravel', 'HomeController@welcome')->name('welcome.index');
 
 Route::get('/', 'HomeController@index')->name('home.index');
 
+
+
+
+
+
+
+
 $posts = [
     1 => [
         'title' => 'title1',
@@ -56,21 +64,33 @@ $posts = [
     ]
 ];
 
-Route::get('/posts', function(Request $request) use ($posts) {
-    request()->all();
-    return view('posts.index', ['posts' => $posts]); //compact($posts)
-});
+// Route::get('/posts', function(Request $request) use ($posts) {
+//     request()->all();
+//     return view('posts.index', ['posts' => $posts]); //compact($posts)
+// });
 
-Route::get('posts/{id}', function($id) use ($posts){
-    abort_if(!isset($posts[$id]), 404);
-    return view('posts.show', ['post' => $posts[$id]]);
-})->name('posts.show');
+// Route::get('posts/{id}', function($id) use ($posts){
+//     abort_if(!isset($posts[$id]), 404);
+//     return view('posts.show', ['post' => $posts[$id]]);
+// })->name('posts.show');
 
-Route::get('recent-posts/{days_ago?}', function($days_ago) {
-    return 'Posts from ' . $days_ago; 
-})->where([
-    'days_ago' => '[0-9]+'
-])->name('posts.recent.index')->middleware('auth');
+// Route::get('recent-posts/{days_ago?}', function($days_ago) {
+//     return 'Posts from ' . $days_ago; 
+// })->where([
+//     'days_ago' => '[0-9]+'
+// ])->name('posts.recent.index')->middleware('auth');
+
+
+Route::resource('posts', 'PostsController');
+
+
+
+
+
+
+
+
+
 
 
 //grouping routes
