@@ -64,34 +64,37 @@ Route::get('recent-posts/{days_ago?}', function($days_ago) {
 ])->name('posts.recent.index');
 
 
-Route::get('/fun/responses', function() use($posts) {
-    return response($posts, 201) 
-        -> header('Content-Type', 'application/json') 
-        -> cookie('MY_COOKIE', 'Th aoGiBi', 3600);
-});
+//grouping routes
+Route::prefix('/fun')->name('fun.')->group(function() use($posts) {
+    Route::get('responses', function() use($posts) {
+        return response($posts, 201) 
+            -> header('Content-Type', 'application/json') 
+            -> cookie('MY_COOKIE', 'Th aoGiBi', 3600);
+    })->name('responses');
 
-Route::get('/fun/redirect', function () {
-    return redirect('/');
-});
+    Route::get('redirect', function () {
+        return redirect('/');
+    })->name('redirect');
 
-Route::get('/fun/back', function () {
-    return back();
-});
+    Route::get('back', function () {
+        return back();
+    })->name('back');
 
-Route::get('/fun/named_route', function () {
-    return redirect() ->route('posts.show', ['id' => 1]);
-});
+    Route::get('named_route', function () {
+        return redirect() ->route('posts.show', ['id' => 1]);
+    })->name('named_route');
 
-Route::get('/fun/away', function () {
-    return redirect()->away('https://google.com');
-});
+    Route::get('away', function () {
+        return redirect()->away('https://google.com');
+    })->name('away');
 
-//trả về json (có thể xem trên POSTMAN)
-Route::get('/fun/json', function () use($posts) {
-    return response()->json($posts);
-});
+    //trả về json (có thể xem trên POSTMAN)
+    Route::get('json', function () use($posts) {
+        return response()->json($posts);
+    })->name('json');
 
-//download file
-Route::get('/fun/download', function () use($posts) {
-    return response()->download(public_path('/gd.jpg'), 'gdragon.jpg');
+    //download file
+    Route::get('download', function () use($posts) {
+        return response()->download(public_path('/gd.jpg'), 'gdragon.jpg');
+    })->name('download');
 });
