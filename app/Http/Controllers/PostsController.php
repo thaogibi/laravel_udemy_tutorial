@@ -55,7 +55,11 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        $request->validate([
+            'title' => 'bail|required|min:5|max:50',
+            'content' => 'min:10'
+        ]);
         $post = new Post();
         $post -> title = $request->input('title');
         $post -> content = $request->input('content');
@@ -68,7 +72,7 @@ class PostsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response 
      */
     public function show($id)
     {
