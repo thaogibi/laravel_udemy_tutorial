@@ -15,4 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome.index');
+
+Route::get('posts/{id}', function($id) {
+    return 'Post ' . $id; 
+})->name('posts.show');
+
+Route::get('recent-posts/{days_ago?}', function($days_ago) {
+    return 'Posts from ' . $days_ago; 
+})->name('posts.recent.index');
