@@ -6,14 +6,7 @@
   <h1>Create new post</h1>
   <form action="{{ route('posts.store')}}" method="POST">
     @csrf
-    <table>
-      <tbody>
-        @include('posts.partials.form')
-      
-        <tr>
-          <input type="submit" value="Create">
-        </tr>
-      </tbody>
-    </table>
+    @include('posts.partials.form')
+    <div><input class="btn btn-primary btn-block" type="submit" value="Create"></div>
   </form>
 @endsection

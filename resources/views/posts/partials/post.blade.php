@@ -1,8 +1,8 @@
 {{-- c1: cách này tương ứng với c1 bên ../index.blade.php --}}
 @if($loop->even)
-  <p style='background-color:gray'>{{ $key }} - {{ $post['title'] }}</p>
+  <div style='background-color:gray'>{{ $key }} - {{ $post['title'] }}</div>
 @else
-  <p>{{ $key }} - {{ $post['title'] }}</p>
+  <div>{{ $key }} - {{ $post['title'] }}</div>
 @endif
 
 {{-- c2: cách này tương ứng với c2 bên ../index.blade.php --}}

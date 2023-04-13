@@ -1,11 +1,17 @@
-<tr>
-  <th>Title</th>
-  <td><input type="text" name="title" value="{{ old('title', optional($post ?? null)->title)}}"></td>
-</tr>
-<tr>
-  <th>Content</th>
-  <td><textarea name="content">{{ old('content', optional($post ?? null)->content )}}</textarea></td>
-</tr>
+<div class="form-group">
+  <label for="title">Title</label>
+  <input id ="title" type="text" name="title" value="{{ old('title', optional($post ?? null)->title)}}">
+</div>
+
+@error('title')
+  <div>{{ $message }}</div>
+@enderror
+
+<div class="form-group">
+  <label for="content">Content</label>
+  <textarea class="form-control" name="content">{{ old('content', optional($post ?? null)->content )}}</textarea>
+</div>
+
 
 {{-- display error --}}
 @if($errors->any())
