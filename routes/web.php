@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 // Route::view('/laravel', 'welcome')->name('welcome.index');
 
-Route::get('/laravel', 'HomeController@welcome')->name('welcome.index');
+Route::get('/laravel', 'HomeController@welcome')->name('laravel');
 
 
 
