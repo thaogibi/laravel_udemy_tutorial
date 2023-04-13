@@ -1,33 +1,33 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
-    private $posts = [
-        1 => [
-            'title' => 'title1',
-            'content' => 'content1'
-        ],
-        2 => [
-            'title' => 'title2',
-            'content' => 'content2'
-        ],
-        3 => [
-            'title' => 'title3',
-            'content' => 'content3'
-        ],
-        4 => [
-            'title' => 'title4',
-            'content' => 'content4'
-        ],
-        5 => [
-            'title' => 'title5',
-            'content' => 'content5'
-        ]
-    ];
+    // private $posts = [
+    //     1 => [
+    //         'title' => 'title1',
+    //         'content' => 'content1'
+    //     ],
+    //     2 => [
+    //         'title' => 'title2',
+    //         'content' => 'content2'
+    //     ],
+    //     3 => [
+    //         'title' => 'title3',
+    //         'content' => 'content3'
+    //     ],
+    //     4 => [
+    //         'title' => 'title4',
+    //         'content' => 'content4'
+    //     ],
+    //     5 => [
+    //         'title' => 'title5',
+    //         'content' => 'content5'
+    //     ]
+    // ];
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +35,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('posts.index', ['posts' => $this->posts]); 
+        return view('posts.index', ['posts' => Post::all()]); 
     }
 
     /**
@@ -67,8 +67,9 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        abort_if(!isset($this -> posts[$id]), 404);
-        return view('posts.show', ['post' => $this -> posts[$id]]);
+        // abort_if(!isset($this -> posts[$id]), 404);
+        // return view('posts.show', ['post' => $this -> posts[$id]]);
+        return view('posts.show', ['post' => Post::findOrFail($id)]);
     }
 
     /**
