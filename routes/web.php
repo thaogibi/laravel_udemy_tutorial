@@ -25,30 +25,34 @@ Route::view('/welcome', 'welcome')->name('welcome.index');
 
 Route::view('/', ('home.index'))->name('home.index');
 
+$posts = [
+    1 => [
+        'title' => 'title1',
+        'content' => 'content1'
+    ],
+    2 => [
+        'title' => 'title2',
+        'content' => 'content2'
+    ],
+    3 => [
+        'title' => 'title3',
+        'content' => 'content3'
+    ],
+    4 => [
+        'title' => 'title4',
+        'content' => 'content4'
+    ],
+    5 => [
+        'title' => 'title5',
+        'content' => 'content5'
+    ]
+];
 
-Route::get('posts/{id}', function($id) {
-    $posts = [
-        1 => [
-            'title' => 'title1',
-            'content' => 'content1'
-        ],
-        2 => [
-            'title' => 'title2',
-            'content' => 'content2'
-        ],
-        3 => [
-            'title' => 'title3',
-            'content' => 'content3'
-        ],
-        4 => [
-            'title' => 'title4',
-            'content' => 'content4'
-        ],
-        5 => [
-            'title' => 'title5',
-            'content' => 'content5'
-        ]
-    ];
+Route::get('/posts', function() use ($posts) {
+    return view('posts.index', ['posts' => $posts]); //compact($posts)
+});
+
+Route::get('posts/{id}', function($id) use ($posts){
     abort_if(!isset($posts[$id]), 404);
     return view('posts.show', ['post' => $posts[$id]]);
 })->name('posts.show');
