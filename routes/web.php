@@ -82,7 +82,7 @@ $posts = [
 
 
 Route::resource('posts', 'PostsController')
-    ->only(['index', 'show', 'create', 'store']);
+    ->only(['index', 'show', 'create', 'store', 'edit', 'update']);
 
 
 
