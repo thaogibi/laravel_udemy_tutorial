@@ -4,7 +4,7 @@
 </div>
 
 @error('title')
-  <div>{{ $message }}</div>
+  <div class="alert alert-danger">{{ $message }}</div>
 @enderror
 
 <div class="form-group">
@@ -15,9 +15,11 @@
 
 {{-- display error --}}
 @if($errors->any())
-  @foreach($errors->all() as $error)
-  <tr>
-    <li>{{ $error }}</li>
-  </tr>
-  @endforeach
+  <div class="mb-3">
+    <ul class="list-group">
+      @foreach($errors->all() as $error)
+        <li class="list-group-item list-group-item-danger">{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
 @endif
