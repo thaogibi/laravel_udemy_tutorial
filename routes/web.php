@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,7 +48,8 @@ $posts = [
     ]
 ];
 
-Route::get('/posts', function() use ($posts) {
+Route::get('/posts', function(Request $request) use ($posts) {
+    request()->all();
     return view('posts.index', ['posts' => $posts]); //compact($posts)
 });
 
@@ -61,7 +62,7 @@ Route::get('recent-posts/{days_ago?}', function($days_ago) {
     return 'Posts from ' . $days_ago; 
 })->where([
     'days_ago' => '[0-9]+'
-])->name('posts.recent.index');
+])->name('posts.recent.index')->middleware('auth');
 
 
 //grouping routes
