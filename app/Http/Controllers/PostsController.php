@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\StorePost;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -54,15 +55,12 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePost $request)
     {   
-        $request->validate([
-            'title' => 'bail|required|min:5|max:50',
-            'content' => 'min:10'
-        ]);
+        $validated = $request->validated();   /// rule trong app/Http/Requests/StorePost.php
         $post = new Post();
-        $post -> title = $request->input('title');
-        $post -> content = $request->input('content');
+        $post -> title = $validated['title'];
+        $post -> content = $validated['content'];
         $post -> save();
 
         return redirect()->route('posts.show', ['post' => $post->id]);
