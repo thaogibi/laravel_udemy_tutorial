@@ -13,13 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/welcome', function () {
-    return view('welcome');
-})->name('welcome.index');
+// Route::get('/welcome', function () {
+//     return view('welcome');
+// })->name('welcome.index');
 
-Route::get('/', function() {
-    return view('home.index');
-});
+Route::view('/welcome', 'welcome')->name('welcome.index');
+
+// Route::get('/', function() {
+//     return view('home.index');
+// })->name('home.index');
+
+Route::view('/', ('home.index'))->name('home.index');
+
 
 Route::get('posts/{id}', function($id) {
     $posts = [
