@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,17 +14,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/welcome', function () {
+// Route::get('/laravel', function () {
 //     return view('welcome');
 // })->name('welcome.index');
 
-Route::view('/welcome', 'welcome')->name('welcome.index');
+// Route::view('/laravel', 'welcome')->name('welcome.index');
+
+Route::get('/laravel', 'HomeController@welcome')->name('welcome.index');
+
+
+
 
 // Route::get('/', function() {
 //     return view('home.index');
 // })->name('home.index');
 
-Route::view('/', ('home.index'))->name('home.index');
+// Route::view('/', ('home.index'))->name('home.index');
+
+Route::get('/', 'HomeController@index')->name('home.index');
 
 $posts = [
     1 => [
