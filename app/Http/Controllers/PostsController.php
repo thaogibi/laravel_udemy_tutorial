@@ -45,7 +45,9 @@ class PostsController extends Controller
         //     }
         // }
         // dd(DB::getQueryLog());
-        return view('posts.index', ['posts' => Post::all()]); 
+        return view(
+            'posts.index', 
+            ['posts' => Post::withCount('comments')->get()]); 
     }
 
     /**

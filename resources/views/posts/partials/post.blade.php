@@ -11,6 +11,13 @@
 {{-- <p>{{ $key }} - {{ $post ['title'] }}</p> --}}
 
 
+@if($post->comments_count)
+  <p>{{ $post->comments_count }} comments</p>
+@else
+  <p>No comments yet!</p>
+@endif
+
+
 
 <div class="mb-3">
   <a href="{{ route('posts.edit', ['post' => $post->id]) }}" class="btn btn-primary">Edit</a>
