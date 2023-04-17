@@ -3,5 +3,7 @@
 @section('title', 'GiBi')
 
 @section('content')
-  Hello! I'm Thao GiBi!
+  <h1>Welcome to Laravel!</h1>
+
+  <p>This is the content of the main page!</p>
 @endsection
