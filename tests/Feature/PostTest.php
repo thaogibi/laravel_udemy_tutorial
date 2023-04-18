@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 // use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Post;
+use App\Models\Comment;
 
 class PostTest extends TestCase
 {   
@@ -45,6 +46,42 @@ class PostTest extends TestCase
         ]);
 
 
+    }
+
+
+    
+    public function testSee1PostWhenThereIs1WithNoComments() 
+    {
+        // Arrange
+        $post = $this->createDummyPost();
+
+        // Act
+        $response = $this->get('/posts');
+
+        // Assert
+        $response->assertSeeText('New title');
+        $response->assertSeeText('No comments yet!');
+
+        $this->assertDatabaseHas('posts', [
+            'title' => 'New title'
+        ]);
+    }
+
+    public function testSee1PostWithComments()
+    {
+
+        // Arrange
+        $post = $this->createDummyPost();
+
+        Comment::factory()->count(4)->create([
+            'post_id' => $post->id
+        ]);
+
+        // Act
+        $response = $this->get('/posts');
+
+        // Assert
+        $response->assertSeeText('4 comments');
     }
 
     public function testStoreValid() {
@@ -90,9 +127,9 @@ class PostTest extends TestCase
     //         ->assertStatus(302)
     //         ->assertSessionHas('status');
 
-    //     $this->assertEquals(session('status'), 'Blog post was updated!');
-    //     $this->assertDatabaseMissing('blog_posts', $post->toArray());
-    //     $this->assertDatabaseHas('blog_posts', [
+    //     $this->assertEquals(session('status'), 'Post was updated!');
+    //     $this->assertDatabaseMissing('posts', $post->toArray());
+    //     $this->assertDatabaseHas('posts', [
     //         'title' => 'A new named title'
     //     ]);
     // }
@@ -106,15 +143,15 @@ class PostTest extends TestCase
     //         ->assertStatus(302)
     //         ->assertSessionHas('status');
 
-    //     $this->assertEquals(session('status'), 'Blog post was deleted!');
-    //     $this->assertDatabaseMissing('blog_posts', $post->toArray());
+    //     $this->assertEquals(session('status'), 'Post was deleted!');
+    //     $this->assertDatabaseMissing('posts', $post->toArray());
     // }
 
     private function createDummyPost(): Post
     {
         $post = new Post();
         $post->title = 'New title';
-        $post->content = 'Content of the blog post';
+        $post->content = 'Content of the post';
         $post->save();
 
         return $post;
