@@ -155,5 +155,13 @@ class PostTest extends TestCase
         $post->save();
 
         return $post;
+
+        // Post::factory() ->count(1) 
+        //     ->state([
+        //         'title' => 'New title', 
+        //         'content' => 'Content of the post'
+        //     ])
+        //     ->create();
+
     }
 }
