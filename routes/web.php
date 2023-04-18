@@ -41,28 +41,28 @@ Route::get('/', 'HomeController@index')->name('home.index');
 
 
 
-$posts = [
-    1 => [
-        'title' => 'title1',
-        'content' => 'content1'
-    ],
-    2 => [
-        'title' => 'title2',
-        'content' => 'content2'
-    ],
-    3 => [
-        'title' => 'title3',
-        'content' => 'content3'
-    ],
-    4 => [
-        'title' => 'title4',
-        'content' => 'content4'
-    ],
-    5 => [
-        'title' => 'title5',
-        'content' => 'content5'
-    ]
-];
+// $posts = [
+//     1 => [
+//         'title' => 'title1',
+//         'content' => 'content1'
+//     ],
+//     2 => [
+//         'title' => 'title2',
+//         'content' => 'content2'
+//     ],
+//     3 => [
+//         'title' => 'title3',
+//         'content' => 'content3'
+//     ],
+//     4 => [
+//         'title' => 'title4',
+//         'content' => 'content4'
+//     ],
+//     5 => [
+//         'title' => 'title5',
+//         'content' => 'content5'
+//     ]
+// ];
 
 // Route::get('/posts', function(Request $request) use ($posts) {
 //     request()->all();
@@ -95,36 +95,41 @@ Route::resource('posts', 'PostsController');
 
 
 //grouping routes
-Route::prefix('/fun')->name('fun.')->group(function() use($posts) {
-    Route::get('responses', function() use($posts) {
-        return response($posts, 201) 
-            -> header('Content-Type', 'application/json') 
-            -> cookie('MY_COOKIE', 'Th aoGiBi', 3600);
-    })->name('responses');
+// Route::prefix('/fun')->name('fun.')->group(function() use($posts) {
+//     Route::get('responses', function() use($posts) {
+//         return response($posts, 201) 
+//             -> header('Content-Type', 'application/json') 
+//             -> cookie('MY_COOKIE', 'Th aoGiBi', 3600);
+//     })->name('responses');
 
-    Route::get('redirect', function () {
-        return redirect('/');
-    })->name('redirect');
+//     Route::get('redirect', function () {
+//         return redirect('/');
+//     })->name('redirect');
 
-    Route::get('back', function () {
-        return back();
-    })->name('back');
+//     Route::get('back', function () {
+//         return back();
+//     })->name('back');
 
-    Route::get('named_route', function () {
-        return redirect() ->route('posts.show', ['id' => 1]);
-    })->name('named_route');
+//     Route::get('named_route', function () {
+//         return redirect() ->route('posts.show', ['id' => 1]);
+//     })->name('named_route');
 
-    Route::get('away', function () {
-        return redirect()->away('https://google.com');
-    })->name('away');
+//     Route::get('away', function () {
+//         return redirect()->away('https://google.com');
+//     })->name('away');
 
-    //trả về json (có thể xem trên POSTMAN)
-    Route::get('json', function () use($posts) {
-        return response()->json($posts);
-    })->name('json');
+//     //trả về json (có thể xem trên POSTMAN)
+//     Route::get('json', function () use($posts) {
+//         return response()->json($posts);
+//     })->name('json');
 
-    //download file
-    Route::get('download', function () use($posts) {
-        return response()->download(public_path('/gd.jpg'), 'gdragon.jpg');
-    })->name('download');
-});
+//     //download file
+//     Route::get('download', function () use($posts) {
+//         return response()->download(public_path('/gd.jpg'), 'gdragon.jpg');
+//     })->name('download');
+// });
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
