@@ -8,28 +8,10 @@ use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
-    // private $posts = [
-    //     1 => [
-    //         'title' => 'title1',
-    //         'content' => 'content1'
-    //     ],
-    //     2 => [
-    //         'title' => 'title2',
-    //         'content' => 'content2'
-    //     ],
-    //     3 => [
-    //         'title' => 'title3',
-    //         'content' => 'content3'
-    //     ],
-    //     4 => [
-    //         'title' => 'title4',
-    //         'content' => 'content4'
-    //     ],
-    //     5 => [
-    //         'title' => 'title5',
-    //         'content' => 'content5'
-    //     ]
-    // ];
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['create', 'store', 'edit', 'update', 'destroy']);
+    }
     /**
      * Display a listing of the resource.
      *

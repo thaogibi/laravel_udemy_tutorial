@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/laravel', 'HomeController@welcome')->name('laravel');
+  // ->middleware('auth');
 
 Route::get('/', 'HomeController@index')->name('home.index');
 
