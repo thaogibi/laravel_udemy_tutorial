@@ -34,8 +34,8 @@ class UserFactory extends Factory
 
     public function suspended() {
         return $this->state([
-                'name' => 'meomeo4',
-                'email' => 'meomeo4@gmail.com',
+                'name' => 'meomeo5',
+                'email' => 'meomeo5@gmail.com',
         ]);
     }
 }
