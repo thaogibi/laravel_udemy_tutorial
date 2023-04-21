@@ -14,7 +14,11 @@ class AddUserToPostsTable extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
+            if(env('DB_CONNECTION') ==='sqlite_testing') {                  //s42_v120
+                $table->unsignedBigInteger('user_id') -> default(0);
+            } else {
+                $table->unsignedBigInteger('user_id');
+            }
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
