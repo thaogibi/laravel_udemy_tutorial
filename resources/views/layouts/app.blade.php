@@ -16,6 +16,24 @@
       <a class="p-2 text-dark" href ="{{ route('laravel')}}">Laravel</a>
       <a class="p-2 text-dark" href ="{{ route('posts.index')}}">Posts</a>
       <a class="p-2 text-dark" href ="{{ route('posts.create')}}">New post</a>
+      
+      @guest
+        @if(Route::has('register'))
+          <a class="p-2 text-dark" href ="{{ route('register')}}">Register</a>
+        @endif
+        
+        <a class="p-2 text-dark" href ="{{ route('login')}}">Login</a>
+        
+      @else
+        <a class="p-2 text-dark" href ="{{ route('logout')}}" 
+          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout
+        </a>
+        <form id="logout-form" action={{ route('logout') }} method="POST" style="display:none">
+            @csrf
+
+        </form>
+      @endguest
+
     </nav>
   </div>
   <div class="container">
@@ -26,5 +44,7 @@
   @endif
     @yield('content')
   </div>
+
+  <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>
