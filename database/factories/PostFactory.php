@@ -23,11 +23,9 @@ class PostFactory extends Factory
     }
 
     public function suspended() {
-        return $this->state(function (Faker $faker) {
-            return [
+        return $this->state([
                 'title' => 'New title',
                 'content' => 'Content of the post'
-            ];
-        });
+        ]);
     }
 }
