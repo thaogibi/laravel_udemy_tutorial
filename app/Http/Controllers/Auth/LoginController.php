@@ -37,4 +37,10 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    // //nếu đăng nhập bằng email
+    // public function username()
+    // {
+    //     return 'username';
+    // }
 }
