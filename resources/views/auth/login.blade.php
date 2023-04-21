@@ -31,11 +31,15 @@
     </div>
 
     <div class="form-group">
-      <div class="form-check">
-        <input class="form-checkbox-input" type="checkbox" name="remember" value ={{ old('remember') ? 'checked' : '' }}>
-        <label class="form-check-label" for="remember">Remember me?</label>
-      </div>    
-    <div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="remember"
+            value="{{ old('remember') ? 'checked': '' }}">
+
+          <label class="form-check-label" for="remember">
+            Remember Me
+          </label>
+        </div>
+    </div>
 
     <button type="submit" class="btn btn-primary btn-block">Login</button>
   </form>
