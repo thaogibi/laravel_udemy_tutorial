@@ -5,6 +5,8 @@ use App\Http\Requests\StorePost;
 use App\Models\Post;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+
 
 class PostsController extends Controller
 {
@@ -83,8 +85,15 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
+        
         // return view('posts.edit', ['post' => Post::findOrFail($id)]);
         $post = Post::findOrFail($id);
+
+        if (Gate::denies('update-post', $post)) {
+            abort(403, 'You can not edit post');
+        }
+
+
         return view('posts.edit', ['post' => $post]);
     }
 
@@ -98,6 +107,11 @@ class PostsController extends Controller
     public function update(StorePost $request, $id)   // nhớ đổi Request -> StorePost để dùng validated()
     {
         $post = Post::findOrFail($id);
+
+        if (Gate::denies('update-post', $post)) {
+            abort(403, 'You can not edit post');
+        }
+
         $validated = $request->validated();
         $post->fill($validated);
         $post->save();
