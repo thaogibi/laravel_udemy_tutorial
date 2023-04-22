@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use App\Policies\PostPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -38,7 +37,7 @@ class AuthServiceProvider extends ServiceProvider
                 
         
         // Viết gộp
-        Gate::resource('posts', 'App\Policies\PostPolicy');
+        // Gate::resource('posts', 'App\Policies\PostPolicy');
             
             //Lệnh gộp trên thay cho các lệnh lẻ sau    
                 // Gate::define('posts.update', 'App\Policies\PostPolicy@update');  // ~ Gate::define('posts.update', [PostPolicy::class, 'update']);
@@ -49,10 +48,10 @@ class AuthServiceProvider extends ServiceProvider
 
 
 
-        // Gate::before(function ($user, $ability) {
-        //     if($user->is_admin && in_array($ability,['posts.update', 'posts.delete'])) {
-        //         return true;
-        //     }
-        // });
+        Gate::before(function ($user, $ability) {
+            if ($user->is_admin && in_array($ability, ['update', 'delete'])) {
+                return true;
+            }
+        });
     }
 }

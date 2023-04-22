@@ -7,7 +7,16 @@ use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
+// use Illuminate\Support\Facades\DB;
 
+// [
+//     'show' => 'view',
+//     'create' => 'create',
+//     'store' => 'create',
+//     'edit' => 'update',
+//     'update' => 'update',
+//     'destroy' => 'delete',
+// ]
 class PostsController extends Controller
 {
     public function __construct()
@@ -74,7 +83,9 @@ class PostsController extends Controller
     {
         // abort_if(!isset($this -> posts[$id]), 404);
         // return view('posts.show', ['post' => $this -> posts[$id]]);
-        return view('posts.show', ['post' => Post::findOrFail($id)]);
+        return view('posts.show', [
+            'post' => Post::with('comments')->findOrFail($id)
+        ]);
     }
 
     /**
