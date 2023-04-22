@@ -33,7 +33,7 @@ class UsersTableSeeder extends Seeder
             //     'remember_token' => Str::random(10),
             // ]);
 
-            // User::factory()->suspended()->create();
+            User::factory()->suspended()->create();
         
         //tạo đồng loạt nhiều record
             // User::factory(10)->create();
