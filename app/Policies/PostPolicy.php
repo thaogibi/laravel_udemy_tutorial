@@ -53,7 +53,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {   
-        // dd('hi');
+        dd('...updating...');
         return $user->id == $post->user_id;
     }
 
@@ -66,7 +66,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        // dd('hi');
+        dd('...deleting...');
         return $user->id == $post->user_id;
     }
 

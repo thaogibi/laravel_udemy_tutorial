@@ -15,6 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Models\Model' => 'App\Policies\ModelPolicy',
+        'App\Models\Post' => 'App\Policies\PostPolicy',
     ];
 
     /**
@@ -34,14 +35,19 @@ class AuthServiceProvider extends ServiceProvider
         //     return $user->id == $post->user_id;
         // });
 
+                
         
-        // Gate::define('posts.update', 'App\Policies\PostPolicy@update');
-        // Gate::define('posts.delete', 'App\Policies\PostPolicy@delete');
-
-        // Gate::define('posts.update', [PostPolicy::class, 'update']);
-        // Gate::define('posts.delete', [PostPolicy::class, 'delete']);
-
+        // Viết gộp
         Gate::resource('posts', 'App\Policies\PostPolicy');
+            
+            //Lệnh gộp trên thay cho các lệnh lẻ sau    
+                // Gate::define('posts.update', 'App\Policies\PostPolicy@update');  // ~ Gate::define('posts.update', [PostPolicy::class, 'update']);
+                // Gate::define('posts.delete', 'App\Policies\PostPolicy@delete');  // ~ Gate::define('posts.delete', [PostPolicy::class, 'delete']);
+                //... ngoài ra còn create, view...
+
+
+
+
 
         // Gate::before(function ($user, $ability) {
         //     if($user->is_admin && in_array($ability,['posts.update', 'posts.delete'])) {

@@ -92,7 +92,8 @@ class PostsController extends Controller
         // if (Gate::denies('update-post', $post)) {
         //     abort(403, 'You can not edit post');
         // }
-        $this->authorize('posts.update', $post);
+
+        $this->authorize($post);    //       cụ thể có thể viết ntn:    $this->authorize('update', $post);
 
 
         return view('posts.edit', ['post' => $post]);
@@ -112,7 +113,8 @@ class PostsController extends Controller
         // if (Gate::denies('update-post', $post)) {
         //     abort(403, 'You can not edit post');
         // }
-        $this->authorize('posts.update', $post);
+
+        $this->authorize($post); //     cụ thể có thể viết ntn:   $this->authorize('update', $post);
 
         $validated = $request->validated();
         $post->fill($validated);
@@ -135,7 +137,7 @@ class PostsController extends Controller
         // if (Gate::denies('delete-post', $post)) {
         //     abort(403, 'You can not delete post');
         // }
-        $this->authorize('posts.delete', $post);
+        $this->authorize($post); //     cụ thể có thể viết ntn:        $this->authorize('delete', $post);
 
         $post->delete();
 
