@@ -11,12 +11,21 @@
 {{-- <p>{{ $key }} - {{ $post ['title'] }}</p> --}}
 
 
+
+
+{{-- thời gian thêm và người viết --}}
+<p class="text-muted">
+  Added {{$post->created_at->diffForHumans()}} 
+  by: {{ $post->user->name }}
+</p>
+
+
+{{-- số lượng comment --}}
 @if($post->comments_count)
   <p>{{ $post->comments_count }} comments</p>
 @else
   <p>No comments yet!</p>
 @endif
-
 
 
 <div class="mb-3">
