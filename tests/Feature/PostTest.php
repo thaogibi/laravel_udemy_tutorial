@@ -8,6 +8,7 @@ use Tests\TestCase;
 use App\Models\Post;
 use App\Models\Comment;
 
+
 class PostTest extends TestCase
 {   
     use RefreshDatabase;
@@ -117,7 +118,9 @@ class PostTest extends TestCase
     }
 
     public function testUpdateValid() {
-        $post = $this->createDummyPost();
+
+        $user = $this->user();
+        $post = $this->createDummyPost($user->id);
 
         $this->assertDatabaseHas('posts', $post->toArray());
 
@@ -126,7 +129,7 @@ class PostTest extends TestCase
             'content' => 'Content was changed'
         ];
 
-        $this->actingAs($this->user())
+        $this->actingAs($user)
             ->PUT("/posts/{$post->id}", $params)
             ->assertStatus(302)
             ->assertSessionHas('status');
@@ -140,10 +143,11 @@ class PostTest extends TestCase
 
 
     public function testDelete() {
-        $post = $this->createDummyPost();
+        $user = $this->user();
+        $post = $this->createDummyPost($user->id);
         $this->assertDatabaseHas('posts', $post->toArray());
 
-        $this->actingAs($this->user())
+        $this->actingAs($user)
             ->delete("/posts/{$post->id}")
             ->assertStatus(302)
             ->assertSessionHas('status');
@@ -153,21 +157,24 @@ class PostTest extends TestCase
         // $this->assertSoftDeleted('post', $post->toArray());
     }
 
-    private function createDummyPost(): Post
+    private function createDummyPost($userId=null): Post
     {
         $post = new Post();
         $post->title = 'New title';
         $post->content = 'Content of the post';
+        $post->user_id = $userId ?? $this->user()->id;
         $post->save();
 
-        return $post;
 
-        // Post::factory() ->count(1) 
-        //     ->state([
+        // $post = Post::factory()->count(1)
+        //     ->states([
         //         'title' => 'New title', 
         //         'content' => 'Content of the post'
         //     ])
-        //     ->create();
+        //     ->create(['user_id'=>$this->user()->id]);
+
+        return $post;
+
 
     }
 }
