@@ -19,6 +19,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/laravel', 'HomeController@welcome')->name('laravel');
   // ->middleware('auth');
 
+Route::get('/contact', 'HomeController@contact')->name('home.contact');
+
+Route::get('/secret', 'HomeController@secret')
+  ->name('home.secret')
+  ->middleware('can:home.secret');
+
 Route::get('/', 'HomeController@index')->name('home.index');
 
 Route::resource('posts', 'PostsController');

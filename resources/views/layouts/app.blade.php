@@ -14,6 +14,7 @@
     <nav class="my-2 my-md-0 mr-md-3">
       <a class="p-2 text-dark" href ="{{ route('home.index')}}">Home</a>
       <a class="p-2 text-dark" href ="{{ route('laravel')}}">Laravel</a>
+      <a class="p-2 text-dark" href ="{{ route('home.contact')}}">Contact</a>
       <a class="p-2 text-dark" href ="{{ route('posts.index')}}">Posts</a>
       <a class="p-2 text-dark" href ="{{ route('posts.create')}}">New post</a>
       
