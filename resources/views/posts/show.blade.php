@@ -8,7 +8,7 @@
   <sup>
     @if(now()->diffForHumans($post->created_at) < 5)
     {{-- @if ((new Carbon\Carbon())->diffInMinutes($post->created_at) < 20) --}}
-      {{-- @badge
+      {{-- @badge(['show' => true])
         Brand new Post!
       @endbadge --}}
       @component('components.badge', (['type' => 'primary']))
