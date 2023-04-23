@@ -7,7 +7,11 @@
   <h1 style="display:inline">{{ $post->title }} </h1>
   <sup>
     @if(now()->diffForHumans($post->created_at) < 5)
-      @component('posts.badge', (['type' => 'primary']))
+    {{-- @if ((new Carbon\Carbon())->diffInMinutes($post->created_at) < 20) --}}
+      {{-- @badge
+        Brand new Post!
+      @endbadge --}}
+      @component('components.badge', (['type' => 'primary']))
           New!
       @endcomponent
     @endif
