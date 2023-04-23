@@ -5,7 +5,7 @@ use App\Http\Requests\StorePost;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 
 
@@ -40,12 +40,28 @@ class PostsController extends Controller
         //     }
         // }
         // dd(DB::getQueryLog());
+
+
+        $mostCommented = Cache::remember('mostCommented', 60, function() {
+            return Post::mostCommented()->take(5)->get();
+        });
+
+
+        $mostActive = Cache::remember('mostActive', 60, function() {
+            return User::withMostPosts()->take(5)->get();
+        });
+
+        $mostActiveLastMonth = Cache::remember('mostActiveLastMonth', 60, function() {
+            return User::withMostPostsLastMonth()->take(5)->get();
+        });
+
+
         return view('posts.index',
             [
                 'posts' => Post::latest()->withCount('comments')->with('user')->get(),
-                // 'mostCommented' => Post::mostCommented()->take(5)->get(),
-                // 'mostActive' => User::withMostPosts()->take(5)->get(),
-                // 'mostActiveLastMonth' => User::withMostPostsLastMonth()->take(5)->get(),
+                'mostCommented' => $mostCommented,
+                'mostActive' => $mostActive,
+                'mostActiveLastMonth' => $mostActiveLastMonth,
             ]
         );
     }

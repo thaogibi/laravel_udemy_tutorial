@@ -30,13 +30,13 @@
                             </h6>
                         </div>
                         <ul class="list-group list-group-flush">
-                            {{-- @foreach ($mostCommented as $post)
+                            @foreach ($mostCommented as $post)
                                 <li class="list-group-item">
                                     <a href="{{ route('posts.show', ['post' => $post->id]) }}">
                                         {{ $post->title }}
                                     </a>
                                 </li>
-                            @endforeach --}}
+                            @endforeach
                         </ul>
                     </div>
                     {{-- @card(['title' => 'Most Commented'])
@@ -64,11 +64,11 @@
                             </h6>
                         </div>
                         <ul class="list-group list-group-flush">
-                            {{-- @foreach ($mostActive as $user)
+                            @foreach ($mostActive as $user)
                                 <li class="list-group-item">
                                     {{ $user->name }}
                                 </li>
-                            @endforeach --}}
+                            @endforeach
                         </ul>
                     </div>
                     {{-- @card(['title' => 'Most Active'])
@@ -87,11 +87,11 @@
                             </h6>
                         </div>
                         <ul class="list-group list-group-flush">
-                            {{-- @foreach ($mostActiveLastMonth as $user)
+                            @foreach ($mostActiveLastMonth as $user)
                                 <li class="list-group-item">
                                     {{ $user->name }}
                                 </li>
-                            @endforeach --}}
+                            @endforeach
                         </ul>
                     </div>
                     {{-- @card(['title' => 'Most Active Last Month'])
