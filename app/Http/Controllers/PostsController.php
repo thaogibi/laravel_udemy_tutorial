@@ -38,7 +38,7 @@ class PostsController extends Controller
         //     }
         // }
         // dd(DB::getQueryLog());
-        return view('posts.index', ['posts' => Post::withCount('comments')->get()]);
+        return view('posts.index', ['posts' => Post::latest()->withCount('comments')->get()]);
     }
 
     /**
@@ -81,9 +81,12 @@ class PostsController extends Controller
     {
         // abort_if(!isset($this -> posts[$id]), 404);
         // return view('posts.show', ['post' => $this -> posts[$id]]);
-        return view('posts.show', [
-            'post' => Post::with('comments')->findOrFail($id)
-        ]);
+
+        return view('posts.show', ['post' => Post::with('comments')->findOrFail($id)]);
+        // dùng local query để xếp comment trong post theo thứ tự mới nhất->xa nhất
+        // return view('posts.show', ['post' => Post::with(['comments' => function($query) {
+        //     return $query->latest();
+        // }])->findOrFail($id)]);
     }
 
     /**
