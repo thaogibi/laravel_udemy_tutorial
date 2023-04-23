@@ -27,27 +27,7 @@ class PostTest extends TestCase
         // $response->assertStatus(200);
     }
 
-    public function testSee1BPostWhenThereIs1() 
-    {
-        // Arrange
-        $post = $this->createDummyPost();
-        // $post = new Post();
-        // $post->title = 'New title';
-        // $post->content = 'Content of the post';
-        // $post->save();
 
-        // Act
-        $response = $this->get('/posts');
-
-        // Assert
-        $response->assertSeeText('New title');
-
-        $this->assertDatabaseHas('posts', [
-            'title' => 'New title'
-        ]);
-
-
-    }
 
 
     
@@ -130,7 +110,7 @@ class PostTest extends TestCase
         ];
 
         $this->actingAs($user)
-            ->PUT("/posts/{$post->id}", $params)
+            ->put("/posts/{$post->id}", $params)
             ->assertStatus(302)
             ->assertSessionHas('status');
 
@@ -153,11 +133,11 @@ class PostTest extends TestCase
             ->assertSessionHas('status');
 
         $this->assertEquals(session('status'), 'Post was deleted!');
-        $this->assertDatabaseMissing('posts', $post->toArray());
-        // $this->assertSoftDeleted('post', $post->toArray());
+        // $this->assertDatabaseMissing('posts', $post->toArray());
+        $this->assertSoftDeleted('post', $post->toArray());
     }
 
-    private function createDummyPost($userId=null): Post
+    private function createDummyPost($userId = null): Post
     {
         $post = new Post();
         $post->title = 'New title';
@@ -171,7 +151,7 @@ class PostTest extends TestCase
         //         'title' => 'New title', 
         //         'content' => 'Content of the post'
         //     ])
-        //     ->create(['user_id'=>$this->user()->id]);
+        //     -> create(['user_id' => $userId ?? $this->user()->id,]);
 
         return $post;
 

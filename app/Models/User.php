@@ -54,7 +54,8 @@ class User extends Authenticatable
     {
         return $query->withCount(['posts' => function (Builder $query) {
             $query->whereBetween(static::CREATED_AT, [now()->subMonths(1), now()]);
-        }])->having('posts_count', '>=', 2)
-           ->orderBy('posts_count', 'desc');
+        }])
+        ->has('blogPosts', '>=', 2)
+        ->orderBy('posts_count', 'desc');
     }
 }
