@@ -6,8 +6,8 @@
 @section('content')
   <h1 style="display:inline">{{ $post->title }} </h1>
   <sup>
-    @if(now()->diffForHumans($post->created_at) < 5)
-    {{-- @if ((new Carbon\Carbon())->diffInMinutes($post->created_at) < 20) --}}
+    {{-- @if(now()->diffForHumans($post->created_at) < 5) --}}
+    @if ((new Carbon\Carbon())->diffInMinutes($post->created_at) < 20)
       {{-- @badge(['show' => true])
         Brand new Post!
       @endbadge --}}

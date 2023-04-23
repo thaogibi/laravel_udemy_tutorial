@@ -42,16 +42,18 @@ class PostsController extends Controller
         // dd(DB::getQueryLog());
 
 
-        $mostCommented = Cache::remember('mostCommented', 60, function() {
+        // $mostCommented = Cache::remember('mostCommented', 60, function() {
+        $mostCommented = Cache::remember('post-commented', 60, function() {
             return Post::mostCommented()->take(5)->get();
         });
 
-
-        $mostActive = Cache::remember('mostActive', 60, function() {
+        // $mostActive = Cache::remember('mostActive', 60, function() {
+        $mostActive = Cache::remember('users-most-active', 60, function() {
             return User::withMostPosts()->take(5)->get();
         });
 
-        $mostActiveLastMonth = Cache::remember('mostActiveLastMonth', 60, function() {
+        // $mostActiveLastMonth = Cache::remember('mostActiveLastMonth', 60, function() {
+        $mostActiveLastMonth = Cache::remember('users-most-active-last-month', 60, function() {
             return User::withMostPostsLastMonth()->take(5)->get();
         });
 
@@ -103,11 +105,25 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response 
      */
     public function show($id)
-    {
+    {   
+
         // abort_if(!isset($this -> posts[$id]), 404);
         // return view('posts.show', ['post' => $this -> posts[$id]]);
 
-        return view('posts.show', ['post' => Post::with('comments')->findOrFail($id)]);
+
+
+
+
+        // return view('posts.show', ['post' => Post::with('comments')->findOrFail($id)]);
+        $post = Cache::remember("post-{$id}", 60, function() use ($id) {
+            return Post::with('comments')->findOrFail($id);
+        });
+
+        return view('posts.show', [
+            'post' => $post,
+        ]);
+
+        
         // dùng local query để xếp comment trong post theo thứ tự mới nhất->xa nhất
         // return view('posts.show', ['post' => Post::with(['comments' => function($query) {
         //     return $query->latest();
