@@ -2,17 +2,30 @@
 
 @section('title', $post->title)
 
+
 @section('content')
-  <h1>{{ $post->title }}</h1>
-  <p>{{ $post->content }}</p>
+  <h1 style="display:inline">{{ $post->title }} </h1>
+  <sup>
+    @if(now()->diffForHumans($post->created_at) < 5)
+      @component('posts.badge', (['type' => 'primary']))
+          New!
+      @endcomponent
+    @endif
+  </sup>
+
+  
   @if($post->created_at)
     <p>Added {{ $post->created_at->diffForHumans() }}</p>
 
-    @if(now()->diffForHumans($post->created_at) < 5)
+    {{-- @if(now()->diffForHumans($post->created_at) < 5)
       <div class="alert alert-info">New!</div>
-    @endif
+    @endif --}}
+  
   @endif
+  
+  <p>{{ $post->content }}</p>
 
+  <hr>
 
   <h4>Comments</h4>
     @forelse($post->comments as $comment)
