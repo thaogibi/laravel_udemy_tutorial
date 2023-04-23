@@ -67,7 +67,7 @@ class PostsController extends Controller
         // $post -> content = $validated['content'];
         // $post -> save();
 
-
+        $validated['user_id'] = $request->user()->id;
         $post = Post::create($validated);
         $request->session()->flash('status', 'The post created susscess!');
         return redirect()->route('posts.show', ['post' => $post->id]);
