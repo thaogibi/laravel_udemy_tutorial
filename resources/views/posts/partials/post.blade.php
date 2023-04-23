@@ -5,8 +5,19 @@
   <div>{{ $key }} - {{ $post['title'] }}</div>
 @endif --}}
 
-<h3><a href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->title }}</a></h3>
 
+
+{{-- <h3><a href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->title }}</a></h3> --}}
+<h3>
+  @if($post->trashed())
+      <del>
+  @endif
+  <a class="{{ $post->trashed() ? 'text-muted' : '' }}"
+      href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->title }}</a>
+  @if($post->trashed())
+      </del>
+  @endif
+</h3>
 {{-- c2: cách này tương ứng với c2 bên ../index.blade.php --}}
 {{-- <p>{{ $key }} - {{ $post ['title'] }}</p> --}}
 
@@ -29,15 +40,36 @@
 
 
 <div class="mb-3">
-  @can('update', $post)
+  {{-- @can('update', $post)
     <a href="{{ route('posts.edit', ['post' => $post->id]) }}" class="btn btn-primary">Edit</a>
-  @endcan
+  @endcan --}}
 
-  @can('delete', $post)
+
+
+  {{-- @can('delete', $post)
     <form class="d-inline" action="{{ route('posts.destroy', ['post' => $post->id]) }}" method="POST">
       @csrf
       @method('DELETE')
       <input type="submit" value="Delete" class="btn btn-primary">
     </form>
-  @endcan
+  @endcan --}}
+
+  @if(!$post->trashed())
+
+    @can('update', $post)
+      <a href="{{ route('posts.edit', ['post' => $post->id]) }}" class="btn btn-primary">Edit</a>
+    @endcan
+    
+    @can('delete', $post)
+      <form method="POST" class="d-inline"
+          action="{{ route('posts.destroy', ['post' => $post->id]) }}">
+          @csrf
+          @method('DELETE')
+
+          <input type="submit" value="Delete!" class="btn btn-primary"/>
+      </form>
+    @endcan
+  @else
+    <p style="color:red">Deleted at {{ $post->deleted_at}}<p>
+  @endif
 </div>

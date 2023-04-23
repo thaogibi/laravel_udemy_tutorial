@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\DeleteAdminScope;
 use App\Scopes\LatestScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -39,11 +40,16 @@ class Post extends Model
 
 
     public static function boot() {
+        //Global query
+        static::addGlobalScope(new DeleteAdminScope);   //phải ở trên
+
         parent::boot();
 
 
         //Global query
         // static::addGlobalScope(new LatestScope);
+
+        
 
         static::deleting(function (Post $post) {
             $post->comments()->delete();
