@@ -42,7 +42,7 @@ class PostsController extends Controller
         // dd(DB::getQueryLog());
         return view('posts.index',
             [
-                'posts' => Post::latest()->withCount('comments')->get(),
+                'posts' => Post::latest()->withCount('comments')->with('user')->get(),
                 // 'mostCommented' => Post::mostCommented()->take(5)->get(),
                 // 'mostActive' => User::withMostPosts()->take(5)->get(),
                 // 'mostActiveLastMonth' => User::withMostPostsLastMonth()->take(5)->get(),

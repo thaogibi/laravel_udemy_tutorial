@@ -65,22 +65,24 @@
     </form>
   @endcan --}}
 
-  @if(!$post->trashed())
+  @auth
+    @if(!$post->trashed())
 
-    @can('update', $post)
-      <a href="{{ route('posts.edit', ['post' => $post->id]) }}" class="btn btn-primary">Edit</a>
-    @endcan
-    
-    @can('delete', $post)
-      <form method="POST" class="d-inline"
-          action="{{ route('posts.destroy', ['post' => $post->id]) }}">
-          @csrf
-          @method('DELETE')
+      @can('update', $post)
+        <a href="{{ route('posts.edit', ['post' => $post->id]) }}" class="btn btn-primary">Edit</a>
+      @endcan
+      
+      @can('delete', $post)
+        <form method="POST" class="d-inline"
+            action="{{ route('posts.destroy', ['post' => $post->id]) }}">
+            @csrf
+            @method('DELETE')
 
-          <input type="submit" value="Delete!" class="btn btn-primary"/>
-      </form>
-    @endcan
-  @else
-    <p style="color:red">Deleted at {{ $post->deleted_at}}<p>
-  @endif
+            <input type="submit" value="Delete!" class="btn btn-primary"/>
+        </form>
+      @endcan
+    @else
+      <p style="color:red">Deleted at {{ $post->deleted_at}}<p>
+    @endif
+  @endauth
 </div>
