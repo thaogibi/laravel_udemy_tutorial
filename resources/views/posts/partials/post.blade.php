@@ -30,6 +30,17 @@
   by: {{ $post->user->name }}
 </p>
 
+{{-- @updated(['date' => $post->created_at, 'name' => $post->user->name])
+@endupdated
+@updated(['date' => $post->updated_at])
+  Updated
+@endupdated --}}
+
+
+
+
+
+
 
 {{-- số lượng comment --}}
 @if($post->comments_count)

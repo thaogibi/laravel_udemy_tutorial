@@ -39,6 +39,8 @@
         <p class="text-muted">
             added {{ $comment->created_at->diffForHumans() }}
         </p>
+        {{-- @updated(['date' => $comment->created_at])
+        @endupdated --}}
     @empty
         <p>No comments yet!</p>
     @endforelse
