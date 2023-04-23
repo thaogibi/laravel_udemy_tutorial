@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -43,5 +44,9 @@ class User extends Authenticatable
 
     public function posts() {
         return $this->hasMany('App\Models\Post');
+    }
+
+    public function scopeWithMostPosts(Builder $query){
+        return $query->withCount('post')->orderBy('posts_count', 'desc');
     }
 }
