@@ -38,9 +38,7 @@ class PostsController extends Controller
         //     }
         // }
         // dd(DB::getQueryLog());
-        return view(
-            'posts.index', 
-            ['posts' => Post::withCount('comments')->get()]); 
+        return view('posts.index', ['posts' => Post::withCount('comments')->get()]);
     }
 
     /**
