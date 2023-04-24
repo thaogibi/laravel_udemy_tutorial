@@ -10,10 +10,7 @@ class PostTagController extends Controller
         $tag = Tag::findOrFail($tag);
         return view('posts.index', [
             'posts' => $tag->posts()
-                ->latest()
-                ->withCount('comments')
-                ->with('tags')
-                ->with('user')
+                ->latesWithRelations()   //scopeLatesWithRelations đã định nghĩa trong post.php
                 ->get(),
             // // sau khi định nghĩa trong /Applications/XAMPP/xamppfiles/htdocs/laravel/app/Http/ViewComposers/ActivityComposer.php thì bỏ đi đc (v173)
             // 'mostCommented' => [],             

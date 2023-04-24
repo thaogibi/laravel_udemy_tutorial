@@ -42,6 +42,14 @@ class Post extends Model
         return $query->withCount('comments')->orderBy('comments_count', 'desc');
     }
 
+    public function scopeLatesWithRelations(Builder $query)
+    {
+        // comments_count
+        return $query->latest()
+            ->withCount('comments')
+            ->with('tags')
+            ->with('user');
+    }
 
     public static function boot() {
         //Global query

@@ -60,11 +60,7 @@ class PostsController extends Controller
 
         return view('posts.index',
             [
-                'posts' => Post::latest()
-                    ->withCount('comments')
-                    ->with('tags')
-                    ->with('user')
-                    ->get(),
+                'posts' => Post::latesWithRelations()->get(),  // //scopeLatesWithRelations đã định nghĩa trong post.php
                 // 'mostCommented' => $mostCommented,
                 // 'mostActive' => $mostActive,
                 // 'mostActiveLastMonth' => $mostActiveLastMonth,
