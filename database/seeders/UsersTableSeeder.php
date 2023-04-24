@@ -40,7 +40,7 @@ class UsersTableSeeder extends Seeder
 
 
             //hỏi số lượng trước khi tạo
-            $usersCount = max((int) $this->command->ask('How many users do you want to create?', 10), 1);  //set default = 10
+            $usersCount = max((int) $this->command->ask('How many users do you want to create?', 20), 1);  //set default = 20
             User::factory($usersCount)->create();
     }
 }

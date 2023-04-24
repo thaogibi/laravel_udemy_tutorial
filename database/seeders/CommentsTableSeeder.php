@@ -29,7 +29,7 @@ class CommentsTableSeeder extends Seeder
             // });
 
         //hoặc hỏi số lượng trước khi tạo
-            $commentsCount = (int) $this->command->ask('How many comments do you want to create?', 10);  //set default = 10
+            $commentsCount = (int) $this->command->ask('How many comments do you want to create?', 150);  //set default = 50
             Comment::factory($commentsCount)->make()->each(function($comment) use ($posts){
                 $comment->post_id = $posts->random()->id;
                 $comment->save();

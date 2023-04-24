@@ -25,7 +25,7 @@ class PostsTableSeeder extends Seeder
 
 
         //hoặc hỏi số lượng trước khi tạo
-            $postsCount = max((int) $this->command->ask('How many posts do you want to create?', 10), 1 );  //set default = 10
+            $postsCount = max((int) $this->command->ask('How many posts do you want to create?', 50), 1 );  //set default = 50
             Post::factory()->count($postsCount)->make()->each(function($post) use ($users) {
                 $post->user_id = $users->random()->id;
                 $post->save();
