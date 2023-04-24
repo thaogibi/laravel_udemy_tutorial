@@ -29,8 +29,19 @@
   
   <p>{{ $post->content }}</p>
 
-  <hr>
 
+
+
+  <hr>
+  {{-- hiển thị số lượng người đang xem trang này --}}
+  <p>Currently read by {{ $counter }} people</p>
+
+  <hr>
+  
+  
+  
+  
+  
   <h4>Comments</h4>
     @forelse($post->comments as $comment)
         <p>
