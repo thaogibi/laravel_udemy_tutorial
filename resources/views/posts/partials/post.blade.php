@@ -39,7 +39,7 @@
 
 @foreach($post->tags as $tag)
   @component('components.tags')
-    <a href="#" style="color:aliceblue; text-decoration:none">{{ $tag->name }}</a>
+    <a href="{{ route('posts.tags.index', ['tag' => $tag->id]) }}" style="color:aliceblue; text-decoration:none">{{ $tag->name }}</a>
   @endcomponent
 @endforeach
 

@@ -32,6 +32,24 @@
 
 
 
+
+
+  @foreach($post->tags as $tag)
+    @component('components.tags')
+      {{-- <a href="#" style="color:aliceblue; text-decoration:none">{{ $tag->name }}</a> --}}
+      <a href="{{ route('posts.tags.index', ['tag' => $tag->id]) }}" style="color:aliceblue; text-decoration:none">{{ $tag->name }}</a>
+    @endcomponent
+  @endforeach
+
+  {{-- @tags(['tags' => $post->tags])
+  @endtags --}}
+
+
+
+
+  
+
+
   <hr>
   {{-- hiển thị số lượng người đang xem trang này --}}
   <p>Currently read by {{ $counter }} people</p>

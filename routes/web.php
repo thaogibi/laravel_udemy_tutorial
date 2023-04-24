@@ -29,4 +29,6 @@ Route::get('/', 'HomeController@index')->name('home.index');
 
 Route::resource('posts', 'PostsController');
 
+Route::get('posts/tag/{tag}', 'PostTagController@index') -> name('posts.tags.index');
+
 Auth::routes();
