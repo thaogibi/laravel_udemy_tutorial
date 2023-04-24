@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB; //them vao 
 use Illuminate\Support\Str;//them vao
 
@@ -22,6 +23,11 @@ class DatabaseSeeder extends Seeder
             $this->command->call('migrate:refresh');  // gọi đến hàm refresh
             $this->command->info('DB was refreshed'); // thêm dòng thông báo
         }
+
+
+        Cache::tags(['post'])->flush();
+
+
         //đây là viết gộp cho từng dòng $this->call(UsersTableSeeder::class);  $this->call(CommentsTableSeeder::class); ;....
             $this->call([
                 UsersTableSeeder::class,
