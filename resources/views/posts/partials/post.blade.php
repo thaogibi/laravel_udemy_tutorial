@@ -37,8 +37,14 @@
 @endupdated --}}
 
 
+@foreach($post->tags as $tag)
+  @component('components.tags')
+    <a href="#" style="color:aliceblue; text-decoration:none">{{ $tag->name }}</a>
+  @endcomponent
+@endforeach
 
-
+{{-- @tags(['tags' => $post->tags])
+@endtags --}}
 
 
 

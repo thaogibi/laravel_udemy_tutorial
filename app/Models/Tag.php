@@ -9,7 +9,7 @@ class Tag extends Model
 {
     use HasFactory;
     public function posts() {
-        return $this->hasMany('App\Models\Post');
+        return $this->belongsToMany('App\Models\Post')->withTimestamps()->as('tagged');   //->as('tagged'): nếu ko có -> thuộc tính xuất ra là pivot, nếu có thì xuất ra tagged
     }
 
 
