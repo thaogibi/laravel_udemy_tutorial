@@ -63,21 +63,23 @@
         
         
         
-        
         <h4>Comments</h4>
-          @forelse($post->comments as $comment)
-              <p>
-                  {{ $comment->content }}
-              </p>
-              <p class="text-muted">
-                  added {{ $comment->created_at->diffForHumans() }}
-                  by {{ $comment->user->name }}
-              </p>
-              {{-- @updated(['date' => $comment->created_at, 'name' => $post->user->name])
-              @endupdated --}}
-          @empty
-              <p>No comments yet!</p>
-          @endforelse
+        
+        @include('comments.create')
+
+        @forelse($post->comments as $comment)
+            <p>
+                {{ $comment->content }}
+            </p>
+            <p class="text-muted">
+                added {{ $comment->created_at->diffForHumans() }}
+                by {{ $comment->user->name }}
+            </p>
+            {{-- @updated(['date' => $comment->created_at, 'name' => $post->user->name])
+            @endupdated --}}
+        @empty
+            <p>No comments yet!</p>
+        @endforelse
       
 
 
