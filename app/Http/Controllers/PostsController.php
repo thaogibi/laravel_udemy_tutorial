@@ -60,7 +60,11 @@ class PostsController extends Controller
 
         return view('posts.index',
             [
-                'posts' => Post::latest()->withCount('comments')->with('tags')->with('user')->get(),
+                'posts' => Post::latest()
+                    ->withCount('comments')
+                    ->with('tags')
+                    ->with('user')
+                    ->get(),
                 // 'mostCommented' => $mostCommented,
                 // 'mostActive' => $mostActive,
                 // 'mostActiveLastMonth' => $mostActiveLastMonth,
@@ -120,7 +124,11 @@ class PostsController extends Controller
         // });
 
         $post = Cache::tags(['post'])->remember("post-{$id}", 60, function() use($id) {
-            return Post::with('comments')->with('tags')->with('user')->findOrFail($id);
+            return Post::with('comments', 'tags', 'user', 'comments.user')
+                ->with('tags')
+                ->with('user')
+                ->with('comments.user')
+                ->findOrFail($id);
         });
 
 
