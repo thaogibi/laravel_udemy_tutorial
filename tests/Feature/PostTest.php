@@ -143,6 +143,8 @@ class PostTest extends TestCase
         $post->title = 'New title';
         $post->content = 'Content of the post';
         $post->user_id = $userId ?? $this->user()->id;
+        // $post->created_at = now();
+        // $post->updated_at = now();
         $post->save();
 
 

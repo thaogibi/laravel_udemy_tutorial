@@ -41,29 +41,29 @@ class PostsController extends Controller
         // }
         // dd(DB::getQueryLog());
 
+        //đã chuyển sang /Applications/XAMPP/xamppfiles/htdocs/laravel/app/Http/ViewComposers/ActivityComposer.php
+                // // $mostCommented = Cache::remember('mostCommented', 60, function() {
+                // $mostCommented = Cache::remember('post-commented', 60, function() {
+                //     return Post::mostCommented()->take(5)->get();
+                // });
 
-        // $mostCommented = Cache::remember('mostCommented', 60, function() {
-        $mostCommented = Cache::remember('post-commented', 60, function() {
-            return Post::mostCommented()->take(5)->get();
-        });
+                // // $mostActive = Cache::remember('mostActive', 60, function() {
+                // $mostActive = Cache::remember('users-most-active', 60, function() {
+                //     return User::withMostPosts()->take(5)->get();
+                // });
 
-        // $mostActive = Cache::remember('mostActive', 60, function() {
-        $mostActive = Cache::remember('users-most-active', 60, function() {
-            return User::withMostPosts()->take(5)->get();
-        });
-
-        // $mostActiveLastMonth = Cache::remember('mostActiveLastMonth', 60, function() {
-        $mostActiveLastMonth = Cache::remember('users-most-active-last-month', 60, function() {
-            return User::withMostPostsLastMonth()->take(5)->get();
-        });
+                // // $mostActiveLastMonth = Cache::remember('mostActiveLastMonth', 60, function() {
+                // $mostActiveLastMonth = Cache::remember('users-most-active-last-month', 60, function() {
+                //     return User::withMostPostsLastMonth()->take(5)->get();
+                // });
 
 
         return view('posts.index',
             [
-                'posts' => Post::latest()->withCount('comments')->with('user')->with('tags')->get(),
-                'mostCommented' => $mostCommented,
-                'mostActive' => $mostActive,
-                'mostActiveLastMonth' => $mostActiveLastMonth,
+                'posts' => Post::latest()->withCount('comments')->with('tags')->with('user')->get(),
+                // 'mostCommented' => $mostCommented,
+                // 'mostActive' => $mostActive,
+                // 'mostActiveLastMonth' => $mostActiveLastMonth,
             ]
         );
     }

@@ -10,9 +10,10 @@ class PostTagController extends Controller
         $tag = Tag::findOrFail($tag);
         return view('posts.index', [
             'posts' => $tag->posts,
-            'mostCommented' => [],
-            'mostActive' => [],
-            'mostActiveLastMonth' => [],
+            // // sau khi định nghĩa trong /Applications/XAMPP/xamppfiles/htdocs/laravel/app/Http/ViewComposers/ActivityComposer.php thì bỏ đi đc (v173)
+            // 'mostCommented' => [],             
+            // 'mostActive' => [],
+            // 'mostActiveLastMonth' => [],
         ]);
     }
 }
