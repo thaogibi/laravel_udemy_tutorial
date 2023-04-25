@@ -84,7 +84,6 @@
       {{-- hiển thị số lượng người đang xem trang này --}}
       <p>Currently read by {{ $counter }} people</p>
 
-      <hr>
       
       {{-- hiển thị image --}}
       {{-- <img src="http://laravel.test/storage/{{ $post->image->path }}"> --}}
@@ -92,6 +91,35 @@
       {{--<img src="{{ asset($post->image->path) }}"> {{-- hình nhỏ nhưng ko hoạt động --}}
       
 
+
+
+
+      @auth
+        @if(!$post->trashed())
+    
+          @can('update', $post)
+            <a href="{{ route('posts.edit', ['post' => $post->id]) }}" class="btn btn-secondary">Edit</a>
+          @endcan
+          
+          @can('delete', $post)
+            <form method="POST" class="d-inline"
+                action="{{ route('posts.destroy', ['post' => $post->id]) }}">
+                @csrf
+                @method('DELETE')
+    
+                <input type="submit" value="Delete!" class="btn btn-danger"/>
+            </form>
+          @endcan
+        @else
+          <p style="color:red">Deleted at {{ $post->deleted_at}}<p>
+        @endif
+      @endauth      
+
+
+
+
+
+      <hr>
 
       
       <h4>Comments</h4>
@@ -112,6 +140,11 @@
           <p>No comments yet!</p>
       @endforelse
     
+
+
+
+
+
 
 
     </div>

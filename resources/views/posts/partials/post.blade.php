@@ -75,7 +75,7 @@
     @if(!$post->trashed())
 
       @can('update', $post)
-        <a href="{{ route('posts.edit', ['post' => $post->id]) }}" class="btn btn-primary">Edit</a>
+        <a href="{{ route('posts.edit', ['post' => $post->id]) }}" class="btn btn-secondary">Edit</a>
       @endcan
       
       @can('delete', $post)
@@ -84,7 +84,7 @@
             @csrf
             @method('DELETE')
 
-            <input type="submit" value="Delete!" class="btn btn-primary"/>
+            <input type="submit" value="Delete!" class="btn btn-danger"/>
         </form>
       @endcan
     @else
