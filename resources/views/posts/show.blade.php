@@ -60,8 +60,14 @@
 
         <hr>
         
+        {{-- hiển thị image --}}
+          
+        {{-- <img src="http://laravel.test/storage/{{ $post->image->path }}"> --}}
+        <img src="{{ $post->image->url() }}">
+        {{--<img src="{{ asset($post->image->path) }}"> {{-- hình nhỏ nhưng ko hoạt động --}}
         
-        
+
+
         
         <h4>Comments</h4>
         

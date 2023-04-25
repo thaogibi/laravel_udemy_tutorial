@@ -30,6 +30,9 @@ class Post extends Model
         return $this->belongsToMany('App\Models\Tag')->withTimestamps()->as('tagged');   //->as('tagged'): nếu ko có -> thuộc tính xuất ra là pivot, nếu có thì xuất ra tagged
     }
 
+    public function image() {
+        return $this->hasOne('App\Models\Image');
+    }
     //Local query
     public function scopeLatest(Builder $query)
     {
