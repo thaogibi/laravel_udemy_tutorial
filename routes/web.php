@@ -33,5 +33,7 @@ Route::get('posts/tag/{tag}', 'PostTagController@index') -> name('posts.tags.ind
 
 Route::resource('posts.comments', 'CommentController')->only(['store']);
 
+Route::resource('users', 'UserController')->only(['show', 'edit', 'update']);
+
 
 Auth::routes();

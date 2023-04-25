@@ -17,6 +17,19 @@
   @if($post->trashed())
       </del>
   @endif
+
+  <sup>
+    {{-- @if(now()->diffForHumans($post->created_at) < 5) --}}
+    @if ((new Carbon\Carbon())->diffInMinutes($post->created_at) < 20)
+      {{-- @badge(['show' => true])
+        Brand new Post!
+      @endbadge --}}
+      @component('components.badge', (['type' => 'info']))
+          New!
+      @endcomponent
+    @endif
+  </sup>
+
 </h3>
 {{-- c2: cách này tương ứng với c2 bên ../index.blade.php --}}
 {{-- <p>{{ $key }} - {{ $post ['title'] }}</p> --}}
