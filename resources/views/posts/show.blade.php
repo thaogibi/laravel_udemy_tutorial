@@ -21,7 +21,7 @@
                 Brand new Post!
               @endbadge --}}
               @component('components.badge', (['type' => 'primary']))
-                  New!
+                Brand new Post!
               @endcomponent
             @endif
           </sup>

@@ -68,6 +68,7 @@ class Post extends Model
 
         static::deleting(function (Post $post) {
             $post->comments()->delete();
+            $post->image()->delete();
             Cache::tags(['post'])->forget("post-{$post->id}");
         });
 

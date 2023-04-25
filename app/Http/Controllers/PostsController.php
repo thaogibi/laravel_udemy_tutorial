@@ -102,11 +102,11 @@ class PostsController extends Controller
 
 
         //file/ thumbnail
-        $hasFile = $request->hasFile('thumbnail');
-        // dump($hasFile);
+        // $hasFile = $request->hasFile('thumbnail');
+        // // dump($hasFile);
 
-        if ($hasFile) {
-            $file = $request->file('thumbnail');
+        // if ($hasFile) {
+        //     $file = $request->file('thumbnail');
 
             //lấy thông tin file
                 //dùng dump để xem cũng đc
@@ -139,6 +139,9 @@ class PostsController extends Controller
             //             dump(Storage::url($l1));                    //-> "http://localhost/storage/thumbnails/76.png"   ; sau khi đổi trong .env là APP_URL=http://laravel.test thì gt mới là "http://laravel.test/storage/thumbnails/81.png"
             //             dump(Storage::disk('local')->url($l1));     //-> "/storage/thumbnails/80.png"
 
+
+        if($request->hasFile('thumbnail')) {
+            $file = $request->file('thumbnail');
             $path = $file->store('thumbnails'); 
             $post->image()->save(
                 Image::create(['path' => $path])
@@ -285,8 +288,22 @@ class PostsController extends Controller
         $post->fill($validated);
         $post->save();
 
+        if($request->hasFile('thumbnail')) {
+            $file = $request->file('thumbnail');
+            $path = $file->store('thumbnails'); 
+            if($post->image) {  //check nếu có ảnh cũ thì xoá
+                Storage::delete($post->image->path);
+                $post->image->path = $path;
+                $post->image->save();
+            }else {
+                $post->image()->save(
+                    Image::create(['path' => $path])
+                );
+            }
+
         $request->session()->flash('status', 'Post was updated!');
         return redirect()->route('posts.show', ['post' => $post->id]);
+        }
     }
 
     /**
