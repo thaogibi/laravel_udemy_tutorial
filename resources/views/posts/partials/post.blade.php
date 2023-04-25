@@ -24,7 +24,7 @@
       {{-- @badge(['show' => true])
         Brand new Post!
       @endbadge --}}
-      @component('components.badge', (['type' => 'info']))
+      @component('components.badge', (['type' => 'primary']))
           New!
       @endcomponent
     @endif
