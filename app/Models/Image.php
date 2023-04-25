@@ -14,6 +14,11 @@ class Image extends Model
         'post_id'
     ];
 
+    public function imageable()
+    {
+        return $this->morphTo();
+    }
+
     public function post() {
         return $this->belongsTo('App\Models\Post');
     }
@@ -21,4 +26,6 @@ class Image extends Model
     public function url() {
         return Storage::url($this->path);
     }
+
+
 }

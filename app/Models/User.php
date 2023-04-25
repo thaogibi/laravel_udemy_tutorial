@@ -12,6 +12,11 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    public function image()
+    {
+        return $this->morphOne('App\Models\Image', 'imageable');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
