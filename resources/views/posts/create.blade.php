@@ -4,7 +4,7 @@
 
 @section('content')
   <h1>Create new post</h1>
-  <form action="{{ route('posts.store')}}" method="POST">
+  <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
     @csrf
     @include('posts.partials.form')
     <div><input class="btn btn-primary btn-block" type="submit" value="Create"></div>

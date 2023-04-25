@@ -13,5 +13,10 @@
 </div>
 
 
+<div class="form-group">
+  <label>Thumbnail</label>
+  <input type="file" name="thumbnail" class="form-control-file"/>
+</div>
+
 {{-- display if error --}}
 @include('components.errors')

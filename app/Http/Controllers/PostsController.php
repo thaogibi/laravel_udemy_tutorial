@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 
 // use Illuminate\Support\Facades\DB;
@@ -92,8 +93,55 @@ class PostsController extends Controller
         // $post -> content = $validated['content'];
         // $post -> save();
 
+
+
         $validated['user_id'] = $request->user()->id;
         $post = Post::create($validated);
+
+
+
+        //file/ thumbnail
+        $hasFile = $request->hasFile('thumbnail');
+        // dump($hasFile);
+
+        if ($hasFile) {
+            $file = $request->file('thumbnail');
+
+            //lấy thông tin file
+                //dùng dump để xem cũng đc
+                    // dump($file);
+                    // dump($file->getClientMimeType());
+                    // dump($file->getClientOriginalExtension());
+                    // dump($file->getClientOriginalName());
+            $fileName = $file->getClientOriginalName();
+            echo 'Tên file: ' . $fileName . '<br>';
+            echo 'Kích thước: ' . $file->getSize() . '<br>';
+            echo 'Đường dẫn thư mục: ' . $file->getRealPath() . '<br>';
+            echo 'Kiểu file: ' . $file->getMimeType() . '<br>';
+            echo 'Đuôi mở rộng - ClientOriginalExtension: ' . $file->getClientOriginalExtension() . '<br>';
+            echo 'Đuôi mở rộng - Extension: ' . $file->guessExtension() . '<br>';
+
+
+
+
+            //lưu trữ và đặt tên file
+                // lưu trữ ở public ('root' => storage_path('app/public') do .env đã set 'FILESYSTEM_DRIVER=public'; và filesystems 
+                    // đơn thuần: đặt ko đổi tên (2 dòng dưới đây tương đương nhau)
+                        // echo ($file->store('thumbnails'));   /
+                        // dump(Storage::disk('public')->putFile('thumbnails', $file));
+
+                // lưu trữ ở local  ('root' => storage_path('app') do .env đã set 'FILESYSTEM_DRIVER=public'; và filesystems 
+                    // có đổi tên (2 dòng dưới đây tương đương nhau)
+                        $l1 = $file->storeAs('thumbnails', $post->id . '.'. $file->getClientOriginalExtension());                     
+                        // $l2 = Storage::disk('local')->putFileAs('thumbnails', $file, $post->id . '.' . $file->getClientOriginalExtension());  
+                        echo $l1.'<br>';
+                        dump(Storage::url($l1));                    //-> "http://localhost/storage/thumbnails/76.png"   ; sau khi đổi trong .env là APP_URL=http://laravel.test thì gt mới là "http://laravel.test/storage/thumbnails/81.png"
+                        dump(Storage::disk('local')->url($l1));     //-> "/storage/thumbnails/80.png"
+                        
+        }
+        die;
+
+
         $request->session()->flash('status', 'The post created susscess!');
         return redirect()->route('posts.show', ['post' => $post->id]);
     }
