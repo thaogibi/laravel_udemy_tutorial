@@ -19,7 +19,7 @@
   @endif
 
   <sup>
-    {{-- @if(now()->diffForHumans($post->created_at) < 5) --}}
+    {{-- @if(now()->diffInMinutes($post->created_at) < 5) --}}
     @if ((new Carbon\Carbon())->diffInMinutes($post->created_at) < 20)
       {{-- @badge(['show' => true])
         Brand new Post!

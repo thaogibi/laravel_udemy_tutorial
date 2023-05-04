@@ -18,7 +18,7 @@ class PostFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(5),
-            'content' => $this->faker->paragraphs(5, true),
+            'content' => $this->faker->paragraphs(5, true),  //true: để trả về dưới dạng văn bản
             'created_at' => $this->faker->dateTimeBetween('-3 months')
         ];
     }

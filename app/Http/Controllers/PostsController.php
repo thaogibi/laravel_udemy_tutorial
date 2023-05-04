@@ -257,13 +257,16 @@ class PostsController extends Controller
         // return view('posts.edit', ['post' => Post::findOrFail($id)]);
         $post = Post::findOrFail($id);
 
+
+        //c1: dùng gate 
         // if (Gate::denies('update-post', $post)) {
         //     abort(403, 'You can not edit post');
         // }
+        //c2: dùng gate (có thể viết ntn)
+        $this->authorize($post);    //       cụ thể có thể viết như c1
 
-        $this->authorize($post);    //       cụ thể có thể viết ntn:    $this->authorize('update', $post);
 
-
+        
         return view('posts.edit', ['post' => $post]);
     }
 
@@ -277,12 +280,12 @@ class PostsController extends Controller
     public function update(StorePost $request, $id)   // nhớ đổi Request -> StorePost để dùng validated()
     {
         $post = Post::findOrFail($id);
-
-        // if (Gate::denies('update-post', $post)) {
-        //     abort(403, 'You can not edit post');
-        // }
-
-        $this->authorize($post); //     cụ thể có thể viết ntn:   $this->authorize('update', $post);
+        //c1:
+            // if (Gate::denies('update-post', $post)) {
+            //     abort(403, 'You can not edit post');
+            // }
+        //c2:
+            $this->authorize($post); //     cụ thể có thể viết như c1 ở trên
 
         $validated = $request->validated();
         $post->fill($validated);

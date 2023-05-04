@@ -33,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('components.tags', 'tags');
         Blade::component('components.errors', 'errors');
 
+
+        //lấy từ app/Http/ViewComposers
         view()->composer(['posts.index', 'posts.show'], ActivityComposer::class);
 
     }

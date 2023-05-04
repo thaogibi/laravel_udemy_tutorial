@@ -6,7 +6,7 @@
     @method('put')
     <div class="row">
       <div class="col-4">
-        <img src="" class="img-thumbnail avarta">
+        <img src="{{ $user->image ? $user->image->url() : ''}}" class="img-thumbnail avarta">
         <div class="card mt-4">
           <div class="card body">
             <h6>Upload a diffrent photo</h6>
