@@ -10,23 +10,23 @@
 </head>
 <body>
   <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm mb-3">
-    <h5 class="my-0 mr-md-auto font-weight-normal">Laravel App</h5>
+    <h5 class="my-0 mr-md-auto font-weight-normal"><a class="p-2 text-dark" href ="{{ route('home.index')}}" style="text-decoration: none">Laravel App</a></h5>
     <nav class="my-2 my-md-0 mr-md-3">
-      <a class="p-2 text-dark" href ="{{ route('home.index')}}">Home</a>
-      <a class="p-2 text-dark" href ="{{ route('laravel')}}">Laravel</a>
-      <a class="p-2 text-dark" href ="{{ route('home.contact')}}">Contact</a>
-      <a class="p-2 text-dark" href ="{{ route('posts.index')}}">Posts</a>
-      <a class="p-2 text-dark" href ="{{ route('posts.create')}}">New post</a>
+      <a class="p-2 text-dark" href ="{{ route('home.index')}}" style="text-decoration: none">Home</a>
+      <a class="p-2 text-dark" href ="{{ route('laravel')}}" style="text-decoration: none">Laravel</a>
+      <a class="p-2 text-dark" href ="{{ route('home.contact')}}" style="text-decoration: none">Contact</a>
+      <a class="p-2 text-dark" href ="{{ route('posts.index')}}" style="text-decoration: none">Posts</a>
+      <a class="p-2 text-dark" href ="{{ route('posts.create')}}" style="text-decoration: none">New post</a>
       
       @guest
         @if(Route::has('register'))
-          <a class="p-2 text-dark" href ="{{ route('register')}}">Register</a>
+          <a class="p-2 text-dark" href ="{{ route('register')}}" style="text-decoration: none">Register</a>
         @endif
         
-        <a class="p-2 text-dark" href ="{{ route('login')}}">Login</a>
+        <a class="p-2 text-dark" href ="{{ route('login')}}" style="text-decoration: none">Login</a>
 
       @else
-        <a class="p-2 text-dark" href ="{{ route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        <a class="p-2 text-dark" href ="{{ route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  style="text-decoration: none">
           Logout ({{ Auth::user()->name }})
         </a>
         <form id="logout-form" action={{ route('logout') }} method="POST" style="display:none">

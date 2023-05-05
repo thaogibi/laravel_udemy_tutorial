@@ -37,7 +37,8 @@ class Post extends Model
     //Local query
     public function scopeLatest(Builder $query)
     {
-        return $query->orderBy(static::CREATED_AT, 'desc');   
+        // return $query->orderBy(static::CREATED_AT, 'desc');   
+        static::addGlobalScope(new LatestScope);
     }
 
     public function scopeMostCommented(Builder $query)

@@ -22,6 +22,7 @@ class ActivityComposer
         return User::withMostPostsLastMonth()->take(5)->get();
     });
 
+    $view->with('posts', Post::latest()->withCount('comments')->with('user')->with('tags')->get());
     $view->with('mostCommented', $mostCommented);
     $view->with('mostActive', $mostActive);
     $view->with('mostActiveLastMonth', $mostActiveLastMonth);

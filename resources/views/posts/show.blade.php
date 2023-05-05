@@ -15,15 +15,30 @@
       @endif
           {{ $post->title }}
           <sup>
-            {{-- @if(now()->diffForHumans($post->created_at) < 5) --}}
-            @if ((new Carbon\Carbon())->diffInMinutes($post->created_at) < 20)
-              {{-- @badge(['show' => true])
+
+            {{-- c1: --}}
+              {{--
+              @if ((new Carbon\Carbon())->diffInMinutes($post->created_at) < 20)  {{-- hoặc viết ntn @if(now()->diffForHumans($post->created_at) < 20) --}}
+                {{-- @component('components.badge', (['type' => 'primary']))
+                  Brand new Post!
+                @endcomponent --}}
+
+
+                {{-- @badge(['show' => true]) //ko dùng đc, phiên bản cũ
+                  Brand new Post!
+                @endbadge --}}
+                {{-- <x-badge type='primary'>
+                  Brand new Post!
+                </x-badge>
+              @endif --}}
+
+
+            {{-- c2: lưu ý cách truyền DL với biến và biểu thức php nhé --}}
+              <x-badge type='primary'  :show="now()->diffInMinutes($post->created_at) < 20">
                 Brand new Post!
-              @endbadge --}}
-              @component('components.badge', (['type' => 'primary']))
-                Brand new Post!
-              @endcomponent
-            @endif
+              </x-badge>
+
+
           </sup>
       @if($post->image)    
           </h1>
@@ -34,26 +49,18 @@
 
       <h1 style="display:inline">{{ $post->title }} </h1>
       <sup>
-        {{-- @if(now()->diffForHumans($post->created_at) < 5) --}}
-        @if ((new Carbon\Carbon())->diffInMinutes($post->created_at) < 20)
-          {{-- @badge(['show' => true])
-            Brand new Post!
-          @endbadge --}}
-          @component('components.badge', (['type' => 'primary']))
-              New!
-          @endcomponent
-        @endif
+        <x-badge type='primary' :show="now()->diffInMinutes($post->created_at) < 20">
+          New!
+        </x-badge>
       </sup>
 
       
-      @if($post->created_at)
-        <p>Added {{ $post->created_at->diffForHumans() }}</p>
-
-        {{-- @if(now()->diffForHumans($post->created_at) < 5)
-          <div class="alert alert-info">New!</div>
-        @endif --}}
       
-      @endif
+      <x-updated :date="$post->created_at" :name="$post->user->name">
+      </x-updated>
+      <x-updated :date="$post->updated_at">
+        Updated
+      </x-updated>
       
       <p>{{ $post->content }}</p>
 
@@ -63,10 +70,10 @@
 
 
       @foreach($post->tags as $tag)
-        @component('components.tags')
+        <x-tags>
           {{-- <a href="#" style="color:aliceblue; text-decoration:none">{{ $tag->name }}</a> --}}
           <a href="{{ route('posts.tags.index', ['tag' => $tag->id]) }}" style="color:aliceblue; text-decoration:none">{{ $tag->name }}</a>
-        @endcomponent
+        </x-tags>
       @endforeach
 
       {{-- @tags(['tags' => $post->tags])

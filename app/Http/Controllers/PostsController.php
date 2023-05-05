@@ -77,6 +77,7 @@ class PostsController extends Controller
      */
     public function create()
     {
+        // $this->authorize('posts.create');
         return view('posts.create');
     }
 
@@ -322,7 +323,7 @@ class PostsController extends Controller
         // if (Gate::denies('delete-post', $post)) {
         //     abort(403, 'You can not delete post');
         // }
-        $this->authorize($post); //     cụ thể có thể viết ntn:        $this->authorize('delete', $post);
+        $this->authorize($post); //     cụ thể có thể viết ntn:        $this->authorize('delete-post', $post);
 
         $post->delete();
 
