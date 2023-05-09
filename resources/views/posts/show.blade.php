@@ -69,12 +69,7 @@
 
 
 
-      @foreach($post->tags as $tag)
-        <x-tags>
-          {{-- <a href="#" style="color:aliceblue; text-decoration:none">{{ $tag->name }}</a> --}}
-          <a href="{{ route('posts.tags.index', ['tag' => $tag->id]) }}" style="color:aliceblue; text-decoration:none">{{ $tag->name }}</a>
-        </x-tags>
-      @endforeach
+      <x-tags :tags="$post->tags"></x-tags>
 
       {{-- @tags(['tags' => $post->tags])
       @endtags --}}
